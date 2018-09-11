@@ -44,7 +44,7 @@ class Trie(object):
             raise TypeError('word cannot be None')
         node = self.find(word)
         if node is None:
-            raise KeyError('word does not exist')
+            return None
         node.terminates = False
         parent = node.parent
         while parent is not None:
@@ -72,5 +72,5 @@ class Trie(object):
             return
         for key, child in node.children.items():
             if child.terminates:
-                result.append(curr_word+key)
-            self._list_words(child, curr_word+key, result)
+                result.append(curr_word + key)
+            self._list_words(child, curr_word + key, result)
