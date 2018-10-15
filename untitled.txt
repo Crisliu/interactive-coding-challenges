@@ -1,0 +1,40 @@
+task scheduler(hard)
+def leastInterval(self, tasks, n):
+        """
+        :type tasks: List[str]
+        :type n: int
+        :rtype: int
+        """
+ 
+        
+        task_map = {}
+        for task in tasks:
+            task_map[task] = task_map.get(task, 0) + 1
+        tasks = sorted(task_map.itervalues(), reverse=True)
+        sum_tasks = sum(tasks)
+        max_val = tasks[0] - 1
+        idle_slots = max_val * n
+        for i in xrange(1, len(tasks)):
+            idle_slots -= min(tasks[i], max_val)
+            if idle_slots <= 0:
+                break
+ 
+        return idle_slots + sum_tasks if idle_slots >= 0 else sum_tasks
+Knapsack 0-1 (Easy)
+# A Dynamic Programming based Python Program for 0-1 Knapsack problem
+# Returns the maximum value that can be put in a knapsack of capacity W
+def knapSack(W, wt, val, n):
+    K = [[0 for x in range(W+1)] for x in range(n+1)]
+ 
+    # Build table K[][] in bottom up manner
+    for i in range(n+1):
+        for w in range(W+1):
+            if i==0 or w==0:
+                K[i][w] = 0
+            elif wt[i-1] <= w:
+                K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w])
+            else:
+                K[i][w] = K[i-1][w]
+ 
+    return K[n][W]
+
